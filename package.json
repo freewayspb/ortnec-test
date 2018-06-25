@@ -1,10 +1,10 @@
 {
+  "name": "ortneck-test",
+  "version": "0.1.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/freewayspb/ortnec-test.git"
   },
-  "name": "ortneck-test",
-  "version": "0.1.0",
   "private": true,
   "dependencies": {
     "history": "^4.7.2",
