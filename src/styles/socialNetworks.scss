@@ -1,0 +1,66 @@
+.social {
+  &-item{
+    max-height: 455px;
+    &-img {
+      min-height: 180px;
+      position: relative;
+      cursor: pointer;
+      img {
+        width: 100%;
+      }
+      padding: 15px 0;
+      background: #000;
+    }
+    &-title {
+      color: $text-color;
+      font-family: "Arial Rounded MT Bold";
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 24px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding-bottom: 15px;
+    }
+    &-network {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      width: 30px;
+      height: 30px;
+      background-color: #ffffff;
+      border-radius: 50%;
+      text-align: center;
+      font-size: 15px;
+      line-height: 30px;
+    }
+  }
+  &-header{
+    position: relative;
+    min-height: 20px;
+    &-title {
+      position: absolute;
+      top: -2px;
+      left: 15px;
+      width: 251px;
+      height: 19px;
+      color: #465993;
+      font-family: Ubuntu;
+      font-size: 24px;
+      font-weight: 700;
+      font-style: italic;
+      line-height: 24px;
+      text-transform: uppercase;
+      letter-spacing: -0.6px;
+      background: #fff;
+    }
+    hr {
+      margin: 30px 0 40px 0;
+      border: 1px solid #d0d8ef;
+    }
+  }
+}
+
+@media screen {
+
+}

@@ -1,16 +1,18 @@
 /* eslint-disable react/prefer-stateless-function,react/jsx-filename-extension */
-import React, { Component } from 'react'
+import React from 'react'
 import Alerts from './components/Alerts'
 import './App.css'
+import ModelListPage from './containers/ModelListPage'
 
-class App extends Component {
+class App extends React.Component {
   render () {
     return (
-      <div className="App">
+      <div>
         <Alerts />
+        <ModelListPage />
       </div>
     )
   }
 }
 
-export default App;
+export default App

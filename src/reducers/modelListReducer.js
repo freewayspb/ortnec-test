@@ -1,16 +1,7 @@
 /* eslint-disable object-curly-spacing */
-export const initialState = {
-  alerts: [],
-  modelsCount: null,
-  modelsList: [],
-  modelListReducer: null,
-  newProfiles: {},
-  modelInfo: {},
-  videos: [],
-  currentVideo: {}
-}
+import { initialState } from './index'
 
-const modelListReducer = (state = initialState, action) =>{
+export default function modelListReducer (state = initialState, action) {
   switch (action.type) {
     case 'GET_VIDEO':
       return {...state, data: action.data, currentVideo: action.data.videos[0]}
@@ -20,5 +11,3 @@ const modelListReducer = (state = initialState, action) =>{
       return state
   }
 }
-
-export default modelListReducer

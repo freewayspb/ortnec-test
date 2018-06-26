@@ -1,0 +1,217 @@
+.video-react {
+  &-has-started {
+    .video-react-control-bar {
+    }
+  }
+  .video-react {
+    &-big-play-button{
+      width: 83px;
+      height: 83px;
+      border-radius: 83px;
+      background-color: #ffffff;
+      border: solid 1px #fff;
+      &.video-react-big-play-button-center {
+        margin-top: -42px;
+        margin-left: -42px;
+        display: inline-block;
+        font-size: 0;
+        &:before{
+          background: url('./img/rounded-rectangle-3.png') no-repeat center;
+        }
+      }
+      &:hover {
+        border-color: #465993;
+        background-color: #fff;
+      }
+    }
+  }
+  &:hover {
+    &.video-react-big-play-button-center {
+      border-color: #465993;
+      background-color: #fff;
+    }
+  }
+  &-playing {
+    & .video-react-big-play-button{
+      &.video-react-big-play-button-center{
+        display: none;
+      }
+    }
+  }
+}
+.video-control {
+  padding: 19px;
+  color: $text-color;
+  font-family: "Arial";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 40px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  button {
+    background: none;
+    border: none;
+    box-shadow: none;
+    position: relative;
+
+    &:first-child {
+      margin: 0 31px 0 0;
+    }
+    &:hover {
+      background: none;
+      border: none;
+    }
+  }
+  &-button {
+    margin: 0 13px 0 0;
+    padding: 0;
+    color: $text-color;
+    font-size: 17px;
+  }
+  &-currentTime {
+    margin: 10px 10px 10px 19px;
+  }
+  &-duration {
+    opacity: 0.2;
+    margin: 10px 0 10px 3px;
+  }
+  &-favorites {
+    font-family: "Arial Rounded MT Bold";
+    text-transform: capitalize;
+  }
+  &-downloads {
+    & .dropdown {
+      .dropdown-toggle {
+        min-width: 143px;
+        border-radius: 20px;
+        background-color: #dae3ff;
+        color: #465993;
+        font-family: "Arial Rounded MT Bold";
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 24px;
+        z-index: 1001;
+        margin: 0;
+        padding: 8px 35px;
+        box-shadow: none;
+        &:hover {
+          background-color: #dae3ff;
+          color: #465993;
+        }
+        &:before {
+          position: absolute;
+          top: 15px;
+          left: 15px;
+          content: "\e166";
+          display: inline-block;
+          font-family: 'Glyphicons Halflings';
+          font-style: normal;
+          font-weight: bold;
+          line-height: 1;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          border: none;
+          font-size: 15px;
+
+        }
+        .caret{
+          position: absolute;
+          display: inline-block;
+          font-family: 'Glyphicons Halflings';
+          font-style: normal;
+          font-weight: bold;
+          line-height: 1;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          border: none;
+          float: right;
+          font-size: 11px;
+          top: 15px;
+          right: 25px;
+          &:before {
+            content: "\e259";
+          }
+        }
+      }
+    }
+    .dropdown-menu {
+      min-width: 143px;
+      margin-top: -20px;
+      border-radius: 3px;
+      border: 0;
+      background-color: #f2f5ff;
+      padding-bottom: 0;
+      padding-top: 20px;
+      & > li > a {
+        padding: 3px 13px;
+        color: $text-color;
+        &:hover {
+          background-color: #dae3ff;
+        }
+      }
+      .favorites-item{
+        color: $text-color;
+        font-family: "Arial";
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 24px;
+        text-transform: capitalize;
+        &:last-child {
+          border-bottom-left-radius: 3px;
+          border-bottom-right-radius: 3px;
+          border-top-right-radius: 0;
+          border-top-left-radius: 0;
+        }
+        &:hover {background-color: #dae3ff;}
+        &-title {
+          color: #465993;
+          font-family: "Arial Rounded MT Bold";
+          line-height: 23px;
+          text-transform: uppercase;
+        }
+      }
+    }
+    &:after{
+      clear: both;
+      float: none;
+    }
+  }
+  .volume-slider {
+    display: inline-block;
+    height: 2px;
+    background-color: #465993;
+    width: 69px;
+    padding: 0;
+    margin: 5px;
+    & .rc-slider-handle{
+      position: absolute;
+      margin-left: 0;
+      margin-top: -4px;
+      cursor: pointer;
+      cursor: -webkit-grab;
+      cursor: grab;
+      border-radius: 0;
+      border: none;
+      -ms-touch-action: pan-x;
+      touch-action: pan-x;
+      width: 2px;
+      height: 11px;
+      opacity: 1;
+      background-color: #465993;
+      &:focus {
+        outline: none;
+      }
+    }
+    & .rc-slider-track {
+      height: 2px;
+      border-radius: 0;
+      background-color: #465993;
+    }
+    & .rc-slider-step {
+      height: 2px;
+    }
+    & .rc-slider-rail {
+      height: 2px;
+    }
+  }
+}

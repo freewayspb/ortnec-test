@@ -1,0 +1,54 @@
+.actor {
+  border-radius: 3px;
+  border: 1px solid #d0d8ef;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+  hr {
+    border: 1px solid #d0d8ef;
+  }
+  &-image {
+
+  }
+  &-name {
+    margin: 20px 0;
+    color: $text-color;
+    font-family: Ubuntu;
+    font-size: 24px;
+    font-weight: 700;
+    font-style: italic;
+    line-height: 24px;
+    text-transform: uppercase;
+    letter-spacing: -0.6px;
+  }
+  &-prop {
+    color: $text-color;
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 400;
+    font-family: "Arial";
+    margin-bottom: 5px;
+    &--title {
+      font-family: "Arial Black";
+      font-weight: 700;
+    }
+    & a{
+      font-family: "Arial";
+      color: $text-color;
+      text-decoration: underline;
+      font-weight: 400;
+      text-transform: capitalize;
+    }
+    &--value {
+
+    }
+  }
+  &-description {
+    padding: 0 17px;
+    color: #334069;
+    font-family: "Arial";
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 22px;
+  }
+}
