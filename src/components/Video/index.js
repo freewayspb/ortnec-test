@@ -24,12 +24,12 @@ export default class Video extends React.Component {
     }
   }
 
-  handleStateChange = state => {
-    // copy player state to this component's state
-    this.setState({
-      player: state
-    });
-  };
+  // handleStateChange = state => {
+  //   // copy player state to this component's state
+  //   this.setState({
+  //     player: state
+  //   });
+  // };
 
   play = () => {
     this.player.play();

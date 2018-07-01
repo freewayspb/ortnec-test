@@ -1,10 +1,9 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import Alert from './Alert';
-import './style.css';
+import React from 'react'
+import { connect } from 'react-redux'
+import Alert from './Alert'
 
 class Alerts extends React.Component {
-  render() {
+  render () {
     return (
       <div className="alerts_container">
         {this.props.alerts.map(alert => (
@@ -13,11 +12,12 @@ class Alerts extends React.Component {
             id={alert.id}
             color={alert.color}
             timeout={alert.timeout}
-          >{alert.text}</Alert>
+          >{alert.text}
+          </Alert>
         ))}
       </div>
-    );
+    )
   }
 }
 
-export default connect(state => ({ alerts: state.state.alerts }))(Alerts);
+export default connect(state => ({ alerts: state.state.alerts }))(Alerts)

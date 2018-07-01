@@ -21,7 +21,8 @@ class AlertBadge extends React.Component {
         color={this.props.color}
         onClick={() => { this.props.actions.closeAlert(this.props.id) }}
         className="alert"
-      >{this.props.children}
+      >
+        {this.props.children}
       </Alert>
     )
   }

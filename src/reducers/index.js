@@ -1,4 +1,5 @@
 /* eslint-disable object-curly-spacing */
+export { routerReducer } from 'react-router-redux'
 export const initialState = {
   alerts: [],
   modelsCount: null,
@@ -10,7 +11,7 @@ export const initialState = {
   currentVideo: {}
 }
 
-const modelListReducer = (state = initialState, action) =>{
+export const modelListReducer = (state = initialState, action) =>{
   switch (action.type) {
     case 'GET_VIDEO':
       return {...state, data: action.data, currentVideo: action.data.videos[0]}
@@ -20,5 +21,3 @@ const modelListReducer = (state = initialState, action) =>{
       return state
   }
 }
-
-export default modelListReducer

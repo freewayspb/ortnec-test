@@ -13,7 +13,7 @@ export class ModelsListPage extends React.Component {
       <div>
         <Container>
           <Row>
-            {this.props.data.videos.length > 0 &&
+            {this.data.videos.length > 0 &&
             <Video
               videos={this.props.data.videos}
               currentVideo={this.props.currentVideo}
@@ -42,10 +42,9 @@ ModelsListPage.propTypes = {
   currentVideo: PropTypes.object,
   changeVideo: PropTypes.func.isRequired
 }
-
-const mapStateToProps = ({ modelListReducer }) => ({
-  data: modelListReducer.data || null,
-  currentVideo: modelListReducer.currentVideo
+const mapStateToProps = ({ data }) => ({
+  data: data.data,
+  currentVideo: data.currentVideo
 })
 
 export default connect(mapStateToProps, { changeVideo })(ModelsListPage)
