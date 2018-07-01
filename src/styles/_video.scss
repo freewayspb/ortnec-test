@@ -1,28 +1,41 @@
-.video-react {
+.react-video {
+  &-wrapper {
+    position: relative;
+    margin: 0 -10px 0 -15px;
+  }
+  &-mask {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    background: #000;
+    opacity: 0.6;
+  }
   &-has-started {
     .video-react-control-bar {
     }
   }
-  .video-react {
-    &-big-play-button{
-      width: 83px;
-      height: 83px;
-      border-radius: 83px;
-      background-color: #ffffff;
-      border: solid 1px #fff;
-      &.video-react-big-play-button-center {
-        margin-top: -42px;
-        margin-left: -42px;
-        display: inline-block;
-        font-size: 0;
-        &:before{
-          background: url('./img/rounded-rectangle-3.png') no-repeat center;
-        }
-      }
-      &:hover {
-        border-color: #465993;
-        background-color: #fff;
-      }
+  &-big-play-button{
+    width: 83px;
+    height: 83px;
+    border-radius: 83px;
+    border: solid 1px #fff;
+    opacity: 100;
+    z-index: 2;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -42px;
+    margin-left: -42px;
+    color: $text-color;
+    font-size: 45px;
+    text-align: center;
+    background: #ffffff url('/img/rounded-rectangle-3.png') no-repeat center;
+    &:hover {
+      border-color: #465993;
+      background-color: #fff;
+      color: #465993;
     }
   }
   &:hover {
@@ -40,47 +53,71 @@
   }
 }
 .video-control {
-  padding: 19px;
   color: $text-color;
   font-family: "Arial";
   font-size: 14px;
   font-weight: 400;
   line-height: 40px;
   text-transform: uppercase;
-  margin-bottom: 20px;
+  margin: 20px -15px;
+  &-block {
+    &--first{
+      //margin: 0 0 0 -15px;
+    }
+    &--second {
+      margin: 0 -15px 0 0;
+    }
+  }
   button {
     background: none;
     border: none;
     box-shadow: none;
     position: relative;
-
-    &:first-child {
-      margin: 0 31px 0 0;
-    }
     &:hover {
       background: none;
       border: none;
+      color: $text-color;
     }
   }
   &-button {
-    margin: 0 13px 0 0;
+    margin: 0 15px 0 0;
     padding: 0;
     color: $text-color;
     font-size: 17px;
+    line-height: 22px;
+    min-width: 20px;
+    &--play {
+      margin-right: 30px;
+    }
+    &--muted {
+      font-size: 22px;
+      margin-right: 5px;
+    }
   }
   &-currentTime {
-    margin: 10px 10px 10px 19px;
+    margin: 10px 10px 10px 20px;
   }
   &-duration {
     opacity: 0.2;
-    margin: 10px 0 10px 3px;
+    margin: 10px 0 10px 5px;
   }
   &-favorites {
     font-family: "Arial Rounded MT Bold";
-    text-transform: capitalize;
+    text-transform: initial;
+    color: $text-color;
+    margin: 0 15px 0 40px;
+    &:hover {
+      text-decoration: none;
+      color: $text-color;
+    }
+    .fa {
+      margin-right: 10px;
+      font-size: 19px;
+    }
   }
   &-downloads {
-    & .dropdown {
+    margin: 0 0 0 10px;
+    .btn-group, .btn-secondary {
       .dropdown-toggle {
         min-width: 143px;
         border-radius: 20px;
@@ -94,44 +131,50 @@
         margin: 0;
         padding: 8px 35px;
         box-shadow: none;
-        &:hover {
+        &:hover, &:focus, &:active {
           background-color: #dae3ff;
           color: #465993;
+          border:none;
+          box-shadow: none !important;
         }
-        &:before {
-          position: absolute;
-          top: 15px;
-          left: 15px;
-          content: "\e166";
-          display: inline-block;
-          font-family: 'Glyphicons Halflings';
-          font-style: normal;
-          font-weight: bold;
-          line-height: 1;
-          -webkit-font-smoothing: antialiased;
-          -moz-osx-font-smoothing: grayscale;
-          border: none;
-          font-size: 15px;
-
-        }
-        .caret{
+        &::after{
           position: absolute;
           display: inline-block;
-          font-family: 'Glyphicons Halflings';
-          font-style: normal;
-          font-weight: bold;
-          line-height: 1;
           -webkit-font-smoothing: antialiased;
           -moz-osx-font-smoothing: grayscale;
-          border: none;
-          float: right;
-          font-size: 11px;
-          top: 15px;
-          right: 25px;
-          &:before {
-            content: "\e259";
-          }
+          top: 45%;
+          right: 17px;
         }
+        .fa {
+          margin: 0 10px 0 -20px;
+        }
+      }
+    }
+    .dropdown-toggle {
+      min-width: 155px;
+      border-radius: 20px;
+      background-color: #dae3ff;
+      color: #465993;
+      font-family: "Arial Rounded MT Bold";
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 24px;
+      z-index: 1001;
+      margin: 0;
+      padding: 8px 35px;
+      box-shadow: none;
+      &:hover, &:focus, &:active {
+        background-color: #dae3ff;
+        color: #465993;
+        border:none;
+      }
+      &::after{
+        position: absolute;
+        display: inline-block;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        top: 45%;
+        right: 17px;
       }
     }
     .dropdown-menu {
@@ -156,6 +199,8 @@
         font-weight: 400;
         line-height: 24px;
         text-transform: capitalize;
+        cursor: pointer;
+        padding: 3px 13px;
         &:last-child {
           border-bottom-left-radius: 3px;
           border-bottom-right-radius: 3px;
@@ -177,17 +222,17 @@
     }
   }
   .volume-slider {
+    background-color: transparent;
     display: inline-block;
     height: 2px;
-    background-color: #465993;
-    width: 69px;
+    margin: 5px 10px;
     padding: 0;
-    margin: 5px;
+    position: relative;
+    width: 69px;
     & .rc-slider-handle{
       position: absolute;
       margin-left: 0;
-      margin-top: -4px;
-      cursor: pointer;
+      margin-top: -8px;
       cursor: -webkit-grab;
       cursor: grab;
       border-radius: 0;
@@ -212,6 +257,9 @@
     }
     & .rc-slider-rail {
       height: 2px;
+      background-color: #000;
+      opacity: 0.2;
+      margin-bottom: -2px;
     }
   }
 }

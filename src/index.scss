@@ -1,0 +1,15 @@
+@import "./styles/_variable";
+@import "./styles/_bootstrap-fix";
+
+/** Component's styles **/
+@import "./styles/_notification";
+@import "./styles/_video";
+@import "./styles/_actor";
+@import "./styles/_socialNetworks";
+@import "./styles/_alert";
+
+.App {
+  max-width: 940px;
+  margin: 0 auto;
+  padding: 20px 0;
+}

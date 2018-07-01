@@ -1,176 +1,213 @@
-/* eslint react/prop-types: 0 */
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Player, BigPlayButton, ControlBar} from 'video-react';
-import { Row, Col, Button, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-import Slider from 'rc-slider/lib/Slider';
+import React from 'react'
+import { findDOMNode } from 'react-dom'
+import ReactPlayer from 'react-player'
+import { Row, Col, Button, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
+import screenfull from 'screenfull'
+import Rcslider from 'rc-slider'
+import Duration from './Duration'
 
 export default class Video extends React.Component {
-  constructor(props, context) {
-    super(props, context);
-    this.state = {
-      player: {},
-      volume: {}
-    };
+  constructor (props, context) {
+    super(props, context)
+
+    this.toggle = this.toggle.bind(this);
   }
 
-  componentDidMount() {
-    this.player.subscribeToStateChange(this.handleStateChange);
+  toggle () {
+    this.setState({
+      dropdownOpen: !this.state.dropdownOpen
+    })
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.currentVideo.id !== this.props.currentVideo.id) {
-      this.load();
+  state = {
+    url: null,
+    playing: false,
+    volume: 0.8,
+    muted: false,
+    played: 0,
+    loaded: 0,
+    duration: 0,
+    playbackRate: 1.0,
+    loop: false,
+    dropdownOpen: false
+  }
+  load = url => {
+    this.setState({
+      url,
+      played: 0,
+      loaded: 0
+    })
+  }
+  playPause = () => {
+    this.setState({ playing: !this.state.playing })
+  }
+  stop = () => {
+    this.setState({ url: null, playing: false })
+  }
+  toggleLoop = () => {
+    this.setState({ loop: !this.state.loop })
+  }
+  setVolume = e => {
+    // this.setState({ volume: parseFloat(e.target.value) })
+    this.setState({ volume: parseFloat(e)/100 })
+  }
+  toggleMuted = () => {
+    this.setState({ muted: !this.state.muted })
+  }
+  setPlaybackRate = e => {
+    this.setState({ playbackRate: parseFloat(e.target.value) })
+  }
+  onPlay = () => {
+    console.log('onPlay')
+    this.setState({ playing: true })
+  }
+  onPause = () => {
+    console.log('onPause')
+    this.setState({ playing: false })
+  }
+  onSeekMouseDown = e => {
+    this.setState({ seeking: true })
+  }
+  onSeekChange = e => {
+    this.setState({ played: parseFloat(e.target.value) })
+  }
+  onSeekMouseUp = e => {
+    this.setState({ seeking: false })
+    this.player.seekTo(parseFloat(e.target.value))
+  }
+  onProgress = state => {
+    // We only want to update time slider if we are not currently seeking
+    if (!this.state.seeking) {
+      this.setState(state)
+      this.setState({played: state.played})
     }
   }
-
-  // handleStateChange = state => {
-  //   // copy player state to this component's state
-  //   this.setState({
-  //     player: state
-  //   });
-  // };
-
-  play = () => {
-    this.player.play();
-  };
-
-  pause = () => {
-    this.player.pause();
-  };
-
-  load = () => {
-    this.player.load();
-  };
-
-  changeCurrentTime = (seconds) => {
-    return () => {
-      const { player } = this.player.getState();
-      const currentTime = player.currentTime;
-      this.player.seek(currentTime + seconds);
-    };
-  };
-
-  seek = (seconds) => {
-    return () => {
-      this.player.seek(seconds);
-    };
-  };
-
-  changePlaybackRateRate(steps) {
-    return () => {
-      const { player } = this.player.getState();
-      const playbackRate = player.playbackRate;
-      this.player.playbackRate = playbackRate + steps;
-    };
+  onEnded = () => {
+    console.log('onEnded')
+    this.setState({ playing: this.state.loop })
   }
-
-  getVolume() {
-    return () => {
-      this.player.volume*100;
-    };
+  onDuration = (duration) => {
+    console.log('onDuration', duration)
+    this.setState({ duration })
   }
-
-  changeVolume = (steps) => {
-    return () => {
-      const { player } = this.player.getState();
-      const volume = player.volume;
-      this.player.volume = volume + steps;
-    };
-  };
-
-  setMuted = (value) => {
-    return () => {
-      this.player.muted = value;
-    };
-  };
-
-
-  changeSource(id) {
-    return () => {
-      this.props.changeVideo(id);
-    };
+  onClickFullscreen = () => {
+    screenfull.request(findDOMNode(this.player))
   }
-
-  onVolumeChange = (value) => {
-    this.player.volume = value/100;
-  };
-
-  getTime = (duration) => {
-    duration = duration.toFixed(0);
-    const h = duration/3600 ^ 0 ;
-    const m = (duration-h*3600)/60 ^ 0 ;
-    const s = duration-h*3600-m*60 ;
-    return ((h<10?"0"+h:h)+":"+(m<10?"0"+m:m)+":"+(s<10?"0"+s:s));
-  };
-
-  render() {
+  renderLoadButton = (url, label) => {
+    return (
+      <button onClick={() => this.load(url)}>
+        {label}
+      </button>
+    )
+  }
+  refPlayer = player => {
+    this.player = player
+  }
+  render () {
+    const { dropdownOpen, playing, volume, muted, loop, played, loaded, duration, playbackRate } = this.state
     return (
       <Col md={9} lg={9} xs={12}>
-        <Player ref={player => this.player = player}>
-          <source src={this.props.currentVideo.sources.mp4} />
-          <BigPlayButton position="center" />
-          <ControlBar autoHide={false} />
-        </Player>
+        <div className="react-video-wrapper">
+          <ReactPlayer
+            ref={this.refPlayer}
+            url={this.props.currentVideo.sources.mp4}
+            className='react-player'
+            width='100%'
+            height='65%'
+            playing={playing}
+            loop={loop}
+            playbackRate={playbackRate}
+            volume={volume}
+            muted={muted}
+            onReady={() => console.log('onReady')}
+            onStart={() => console.log('onStart')}
+            onPlay={this.onPlay}
+            onPause={this.onPause}
+            onBuffer={() => console.log('onBuffer')}
+            onSeek={e => console.log('onSeek', e)}
+            onEnded={this.onEnded}
+            onError={e => console.log('onError', e)}
+            onProgress={this.onProgress}
+            onDuration={this.onDuration} />
+          {!playing ?
+            <div>
+              <div className="react-video-mask">
+              </div>
+              <Button className='react-video-big-play-button' onClick={this.playPause} />
+            </div>
+            : ''}
+        </div>
         <Row className="video-control">
-          <Col md={6} lg={6} xs={12}>
-            {this.state.player.paused ?
-              <Button onClick={this.play} className="video-control-button">
-                <i className="glyphicon glyphicon-play" />
-              </Button> :
-              <Button onClick={this.pause} className="video-control-button">
-                <i className="glyphicon glyphicon-pause" />
-              </Button>}
-            {this.state.player.muted ?
-              <Button onClick={this.setMuted(false)} className="video-control-button">
-                <i className="glyphicon glyphicon-volume-off" />
-              </Button> :
-              <Button onClick={this.setMuted(true)} className="video-control-button">
-                <i className="glyphicon glyphicon-volume-up" />
-              </Button>
-            }
-            <Slider className="volume-slider"
-                    value={this.state.player.volume*100 || 20}
-                    onChange={this.onVolumeChange}
-            />
+          <Col md={6} lg={6} xs={12} className="video-control-block--first">
+             {!playing
+             ? <Button
+                 onClick={this.playPause}
+                 className="video-control-button video-control-button--play">
+             <i className="fa fa-play" />
+             </Button>
+            : <Button
+                 onClick={this.playPause}
+                 className="video-control-button video-control-button--play">
+             <i className="fa fa-pause" />
+             </Button>}
+             {muted
+             ? <Button
+                 onClick={this.toggleMuted}
+                 className="video-control-button video-control-button--muted">
+             <i className="fa fa-volume-off" />
+             </Button>
+            : <Button
+                 onClick={this.toggleMuted}
+                 className="video-control-button video-control-button--muted">
+             <i className="fa fa-volume-up" />
+             </Button>
+             }
+             <Rcslider
+               className="volume-slider"
+               value={volume*100}
+               onChange={this.setVolume}
+             />
             <span className="video-control-currentTime">
-                            {this.state.player.currentTime ? this.getTime(this.state.player.currentTime): '00:00:00'}
-                            </span>
+              {/*{played ? played : '00:00:00'}*/}
+              <Duration seconds={duration * this.state.played} />
+            </span>
             <span className="video-control-duration">
-                            {this.state.player.duration ? this.getTime(this.state.player.duration) : '00:00:00'}
-                            </span>
+              <Duration seconds={duration} />
+            </span>
           </Col>
-          <Col md={6} lg={6} xs={12}>
+          <Col md={6} lg={6} xs={12} className="video-control-block--second">
             <Row>
-              <Col md={6} lg={6} xs={6} className="text-center">
                 <a href="#" className="video-control-favorites">
-                  <i className="glyphicon glyphicon-heart-empty" /> Add to favorites
+                  <i className="fa fa-heart-o" /> Add to favorites
                 </a>
-              </Col>
-              <Col md={6} lg={6} xs={6} className="text-center">
                 <span className="video-control-downloads">
-                    <ButtonDropdown
-                      componentClass={Button.Dropdown}
-                      id={this.props.currentVideo.id}
-                      title="Download"
-                    >
-                        {this.props.currentVideo.download.map((item, index) => (
-                          <DropdownItem key={`item-${index}`}
-                                    onClick={() => window.location.href=item.url}
-                                    className="favorites-item">
-                            <span className="favorites-item-title">{item.title}</span> {item.fileSize}</DropdownItem>
-                        ))}
-                    </ButtonDropdown>
+                  <ButtonDropdown
+                    direction="down"
+                    isOpen={dropdownOpen}
+                    toggle={this.toggle}
+                    id={this.props.currentVideo && this.props.currentVideo.id}
+                  >
+                    <DropdownToggle caret>
+                      <i className="fa fa-download" /> Download
+                    </DropdownToggle>
+                    <DropdownMenu>
+                    {this.props.currentVideo &&
+                    this.props.currentVideo.download.map((item, index) => (
+                      <DropdownItem
+                        key={`item-${index}`}
+                        onClick={() => window.location.href = item.url}
+                        className="favorites-item"
+                      >
+                        <span className="favorites-item-title">{item.title}</span> {item.filesize}
+                      </DropdownItem>
+                    ))}
+                    </DropdownMenu>
+                  </ButtonDropdown>
                 </span>
-              </Col>
             </Row>
           </Col>
         </Row>
       </Col>
-    );
+    )
   }
 }
-Video.PropTypes = {
-  videos: PropTypes.array,
-  currentVideo: PropTypes.object
-};

@@ -3,15 +3,16 @@
   border: 1px solid #d0d8ef;
   padding: 20px;
   text-align: center;
-  margin-bottom: 20px;
+  margin: 0 -15px 20px 0;
   hr {
     border: 1px solid #d0d8ef;
+    margin: 25px 0 20px 0;
   }
   &-image {
 
   }
   &-name {
-    margin: 20px 0;
+    margin: 15px 0 20px 0;
     color: $text-color;
     font-family: Ubuntu;
     font-size: 24px;
@@ -19,12 +20,12 @@
     font-style: italic;
     line-height: 24px;
     text-transform: uppercase;
-    letter-spacing: -0.6px;
+    letter-spacing: -0.92px;
   }
   &-prop {
     color: $text-color;
     font-size: 14px;
-    line-height: 24px;
+    line-height: 21px;
     font-weight: 400;
     font-family: "Arial";
     margin-bottom: 5px;
@@ -44,7 +45,7 @@
     }
   }
   &-description {
-    padding: 0 17px;
+    padding: 0 5px;
     color: #334069;
     font-family: "Arial";
     font-size: 14px;

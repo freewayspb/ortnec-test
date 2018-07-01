@@ -1,4 +1,7 @@
-import receivedData from '../data.json'
+export const initialState = {
+  alerts: [],
+  data: null
+}
 
 export function alert (text = 'Done', color = 'primary', timeout = 5000) {
   return {
@@ -23,9 +26,9 @@ export function setUserData (data) {
   }
 }
 
-export const getVideo = () => ({
+export const getVideo = receivedData => ({
   type: 'GET_VIDEO',
-  data: receivedData
+  payload: receivedData
 })
 
 export const changeVideo = id => ({

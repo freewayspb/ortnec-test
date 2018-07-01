@@ -1,50 +1,64 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Container, Row } from 'reactstrap'
+import PropTypes from 'prop-types'
+import store from '../store'
 import Video from '../components/Video'
-// import Actor from '../components/Actor'
+import Actor from '../components/Actor'
 import SocialNetworks from '../components/SocialNetworks'
+import Loader from '../components/Loader'
 import { changeVideo } from '../actions'
+import data from '../data.json'
 
-export class ModelsListPage extends React.Component {
+class ModelsListPage extends React.Component {
+  state = {
+    data: null
+  }
+  componentDidMount () {
+    store.dispatch({
+      type: 'GET_VIDEO',
+      data
+    })
+    this.setState({data})
+  }
+
   render () {
-    return (
-      <div>
-        <Container>
-          <Row>
-            {this.data.videos.length > 0 &&
-            <Video
-              videos={this.props.data.videos}
-              currentVideo={this.props.currentVideo}
-              changeVideo={this.props.changeVideo}
-            />}
-            {/*<Actor data={this.props.data.modelInfo} />*/}
-          </Row>
-        </Container>
-        <Container>
-          <Row>
+    if (this.state.data === null) {
+      return <Loader />
+    } else {
+      return (
+        <div>
+          <Container fluid={true}>
+            <Row>
+              <Video
+                videos={this.props.data.data.videos}
+                currentVideo={this.props.data.currentVideo}
+                changeVideo={this.props.changeVideo}
+              />
+              <Actor data={this.props.data.data.modelInfo} />
+            </Row>
+          </Container>
+          <Container fluid={true}>
             <SocialNetworks
-              data={this.props.data}
-              currentVideo={this.props.currentVideo}
+              data={this.props.data.data}
+              currentVideo={this.props.data.currentVideo}
               changeVideo={this.props.changeVideo}
             />
-          </Row>
-        </Container>
-      </div>
-    );
+          </Container>
+        </div>
+      )
+    }
   }
 }
 
 ModelsListPage.propTypes = {
   data: PropTypes.object.isRequired,
-  getVideo: PropTypes.func,
   currentVideo: PropTypes.object,
   changeVideo: PropTypes.func.isRequired
 }
-const mapStateToProps = ({ data }) => ({
-  data: data.data,
-  currentVideo: data.currentVideo
+
+const mapStateToProps = state => ({
+  data: state.modelList
 })
 
 export default connect(mapStateToProps, { changeVideo })(ModelsListPage)

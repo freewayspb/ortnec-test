@@ -1,19 +1,14 @@
-/* eslint-disable react/jsx-filename-extension */
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { Router, Route } from 'react-router'
-import createHistory from 'history/createBrowserHistory'
-import { modelListReducer } from './reducers'
 
-import './styles/styles.scss'
-import { getVideo } from './actions'
+import store, { history } from './store'
 import App from './App'
-
-const store = createStore(modelListReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
-store.dispatch(getVideo())
-const history = createHistory()
+import registerServiceWorker from './registerServiceWorker'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'font-awesome/css/font-awesome.css';
+import './index.scss'
 
 ReactDOM.render(
   <Provider store={store}>
@@ -23,3 +18,4 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 )
+registerServiceWorker()
