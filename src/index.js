@@ -5,7 +5,6 @@ import { Router, Route } from 'react-router'
 
 import store, { history } from './store'
 import App from './App'
-import registerServiceWorker from './registerServiceWorker'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.css';
 import './index.scss'
@@ -18,4 +17,3 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 )
-registerServiceWorker()

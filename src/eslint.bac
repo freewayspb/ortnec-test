@@ -1,5 +1,5 @@
 {
-  "extends": ["airbnb-standard"],
+  "extends": ["airbnb-base"],
   "rules": {
     "semi": ["error", "never"],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]

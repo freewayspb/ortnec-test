@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Container, Row } from 'reactstrap'
 import ModelsListPage from './containers/ModelListPage'
 
 class App extends Component {

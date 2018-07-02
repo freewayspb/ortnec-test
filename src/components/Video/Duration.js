@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 export default function Duration ({ className, seconds }) {
   return (
@@ -20,5 +21,10 @@ function format (seconds) {
 }
 
 function pad (string) {
-  return ('0' + string).slice(-2)
+  return (`0${string}`).slice(-2)
+}
+
+Duration.propTypes = {
+  className: PropTypes.string,
+  seconds: PropTypes.number
 }
