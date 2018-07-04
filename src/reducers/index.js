@@ -2,28 +2,43 @@ import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 import {
   initialState,
-  SET_VIDEO_LIST,
+  GET_ITEMS_SUCCESS,
+  HAS_ERROR,
+  IS_LOADING,
   CHANGE_VIDEO,
   CLOSE_ALERT
 } from '../actions'
 
-export const modelListReducer = (state = initialState, action) => {
+export function hasError (state = false, action) {
   switch (action.type) {
-    case SET_VIDEO_LIST:
-      return {
-        ...state,
-        models: action.payload.data,
-        currentVideo: action.payload.data.videos[0]
-      }
-    case CHANGE_VIDEO:
-      return {
-        ...state,
-        currentVideo: state.models.videos[action.id]
-      }
+    case HAS_ERROR:
+      return action.hasError;
+
     default:
-      return state
+      return state;
   }
 }
+
+export function isLoading(state = false, action) {
+  switch (action.type) {
+    case IS_LOADING:
+      return action.isLoading;
+
+    default:
+      return state;
+  }
+}
+
+export function items(state = [], action) {
+  switch (action.type) {
+    case GET_ITEMS_SUCCESS:
+      return action.items;
+
+    default:
+      return state;
+  }
+}
+
 const closeAlert = (state = {alerts: []}, action) => {
   switch (action.type) {
     case CLOSE_ALERT:
@@ -36,15 +51,11 @@ const closeAlert = (state = {alerts: []}, action) => {
   }
 }
 
-// The Widget Reducer
-const widgetReducer = function (state = {}, action) {
-  return state
-}
-
 // Combine Reducers
 const reducers = combineReducers({
-  modelList: modelListReducer,
-  widgetState: widgetReducer,
+  items,
+  isLoading,
+  hasError,
   closeAlert,
   routing: routerReducer
 })

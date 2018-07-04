@@ -1,15 +1,15 @@
-import { createStore } from 'redux'
-import { syncHistoryWithStore } from 'react-router-redux'
-import createHistory from 'history/createBrowserHistory'
+import { createStore, applyMiddleware } from 'redux'
+import { createLogger } from 'redux-logger'
+import thunk from 'redux-thunk'
 import reducers from './reducers'
 
-const store = createStore(
-  reducers,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-)
-
-const browserHistory = createHistory()
-
-export const history = syncHistoryWithStore(browserHistory, store)
-
-export default store
+export default function configureStore (initialState) {
+  const logger = createLogger()
+  const store = createStore(
+    reducers,
+    initialState,
+    applyMiddleware(thunk, logger),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  )
+  return store
+}

@@ -156,7 +156,7 @@ export default class Video extends React.Component {
               onChange={this.setVolume}
             />
             <span className="video-control-currentTime">
-              {/* {played ? played : '00:00:00'} */}
+               {played ? played : '00:00:00'}
               <Duration seconds={duration * this.state.played} />
             </span>
             <span className="video-control-duration">
@@ -169,28 +169,28 @@ export default class Video extends React.Component {
                 <i className="fa fa-heart-o" /> Add to favorites
               </a>
               <span className="video-control-downloads">
-                {/*<ButtonDropdown*/}
-                  {/*direction="down"*/}
-                  {/*isOpen={dropdownOpen}*/}
-                  {/*toggle={this.toggle}*/}
-                  {/*id={this.props.currentVideo && this.props.currentVideo.id}*/}
-                {/*>*/}
-                  {/*<DropdownToggle caret>*/}
-                    {/*<i className="fa fa-download" /> Download*/}
-                  {/*</DropdownToggle>*/}
-                  {/*<DropdownMenu>*/}
-                    {/*{this.props.currentVideo &&*/}
-                    {/*this.props.currentVideo.download.map((item, index) => (*/}
-                      {/*<DropdownItem*/}
-                        {/*key={`item-${index}`}*/}
-                        {/*onClick={() => window.location.href = item.url}*/}
-                        {/*className="favorites-item"*/}
-                      {/*>*/}
-                        {/*<span className="favorites-item-title">{item.title}</span> {item.filesize}*/}
-                      {/*</DropdownItem>*/}
-                    {/*))}*/}
-                  {/*</DropdownMenu>*/}
-                {/*</ButtonDropdown>*/}
+                <ButtonDropdown
+                  direction="down"
+                  isOpen={dropdownOpen}
+                  toggle={this.toggle}
+                  id={currentVideo && currentVideo.id}
+                >
+                  <DropdownToggle caret>
+                    <i className="fa fa-download" /> Download
+                  </DropdownToggle>
+                  <DropdownMenu>
+                    {this.props.currentVideo &&
+                    this.props.currentVideo.download.map((item, index) => (
+                      <DropdownItem
+                        key={`item-${index}`}
+                        onClick={() => window.location.href = item.url}
+                        className="favorites-item"
+                      >
+                        <span className="favorites-item-title">{item.title}</span> {item.filesize}
+                      </DropdownItem>
+                    ))}
+                  </DropdownMenu>
+                </ButtonDropdown>
               </span>
             </Row>
           </Col>

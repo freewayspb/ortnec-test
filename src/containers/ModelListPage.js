@@ -8,22 +8,25 @@ import Video from '../components/Video'
 import Actor from '../components/Actor'
 import SocialNetworks from '../components/SocialNetworks'
 import Loader from '../components/Loader'
-import { changeVideo, setVideoList } from '../actions'
-import data from '../data.json'
+import { changeVideo, getProfiles } from '../actions'
 
 class ModelsListPage extends React.Component {
   componentDidMount () {
-    // this.props.dispatch(setVideoList(data));
+    this.props.actions.getProfiles('123');
     console.log(this.props)
     console.log(this.state)
   }
 
   render () {
-    const { videos, currentVideo, actions } = this.props;
+    const { items, actions, videos, isLoading, hasError } = this.props;
     console.log(this.props)
-    if (videos) {
-      return <Loader />
+    if (isLoading && !items) {
+      return <Loader/>
+    } else if (hasError) {
+      return <p>error loading data </p>
     } else {
+      console.log(this.props)
+      let currentVideo = videos && videos.find((item) => { return item.id === 1})
       return (
         <div>
           <Container fluid={true}>
@@ -33,12 +36,12 @@ class ModelsListPage extends React.Component {
                 currentVideo={currentVideo}
                 changeVideo={actions.changeVideo}
               />
-              {/*<Actor data={models} />*/}
+              {/*<Actor data={items} />*/}
             </Row>
           </Container>
           <Container fluid={true}>
             {/*<SocialNetworks*/}
-              {/*data={models}*/}
+              {/*data={items.videos}*/}
               {/*currentVideo={currentVideo}*/}
               {/*changeVideo={this.props.changeVideo}*/}
             {/*/>*/}
@@ -50,17 +53,22 @@ class ModelsListPage extends React.Component {
 }
 
 ModelsListPage.propTypes = {
-  currentVideo: PropTypes.object
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = state => (
+  {
   ...state,
-  videos: state.modelList.models.videos,
-  currentVideo: state.modelList.currentVideo
+  items: state.items,
+  videos: state.items.videos,
+  hasError: state.hasError,
+  isLoading: state.isLoading
 })
 
 const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators({ changeVideo }, dispatch)
+    actions: bindActionCreators({
+      changeVideo,
+      getProfiles
+    }, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ModelsListPage)
