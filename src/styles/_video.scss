@@ -1,7 +1,14 @@
+
 .react-video {
+
   &-wrapper {
     position: relative;
     margin: 0 -10px 0 -15px;
+    .react-player {
+      height: 525px;
+      background-color: black;
+      border-radius: 3px;
+    }
   }
   &-mask {
     width: 100%;
@@ -11,10 +18,7 @@
     position: absolute;
     background: #000;
     opacity: 0.6;
-  }
-  &-has-started {
-    .video-react-control-bar {
-    }
+    border-radius: 3px;
   }
   &-big-play-button{
     width: 83px;

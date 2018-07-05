@@ -1,5 +1,6 @@
-export const CHANGE_VIDEO = 'CHANGE_VIDEO'
+export const ALERT = 'ALERT'
 export const CLOSE_ALERT = 'CLOSE_ALERT'
+export const CHANGE_VIDEO = 'CHANGE_VIDEO'
 export const IS_LOADING = 'IS_LOADING'
 export const HAS_ERROR = 'HAS_ERROR'
 export const GET_ITEMS_SUCCESS = 'GET_ITEMS_SUCCESS'
@@ -8,17 +9,19 @@ let apiUrl = 'https://5b3bfd27e7659e00149695e4.mockapi.io/api/v1/profiles/'
 
 export const initialState = {
   alerts: [],
-  items: [],
+  currentVideo: null,
+  items: {},
   isLoading: true,
-  hasError: ''
+  hasError: false
 }
 
-export function alert (text = 'Done', color = 'primary', timeout = 5000) {
+export function alert (text = 'Done', timeout = 5000, buttonText, buttonUrl) {
   return {
-    type: 'ALERT',
+    type: ALERT,
     text,
-    color,
-    timeout
+    timeout,
+    buttonText,
+    buttonUrl
   }
 }
 
@@ -26,13 +29,6 @@ export const closeAlert = (id) => {
   return {
     type: CLOSE_ALERT,
     id
-  }
-}
-
-export const setUserData = (data) => {
-  return {
-    type: 'SET_USER_DATA',
-    payload: data
   }
 }
 
@@ -53,11 +49,12 @@ export function isLoading(bool) {
 export function itemsFetchDataSuccess(items) {
   return {
     type: GET_ITEMS_SUCCESS,
-    items
+    items,
+    currentVideo: items.videos.find(item => {return item.id === 1})
   };
 }
 
-/* using test API from mock.io */
+/* get test API request from mock.io */
 
 export function getProfiles(id = '') {
   return (dispatch) => {
@@ -65,22 +62,23 @@ export function getProfiles(id = '') {
 
     fetch(`${apiUrl}${id}`)
       .then((response) => {
-        console.log(response)
         if (!response.ok) {
           throw Error(response.statusText)
         }
         return response
       })
-      .then((response) => {
-        response.json()
+      .then((response) => response.json())
+      .then((items) => {
+        dispatch(itemsFetchDataSuccess(items))
         dispatch(isLoading(false))
       })
-      .then((items) => dispatch(itemsFetchDataSuccess(items)))
       .catch(() => dispatch(hasError(true)))
   }
 }
 
-export const changeVideo = id => ({
-  type: CHANGE_VIDEO,
-  id
-})
+export function changeVideo (currentVideo) {
+  return {
+    type: CHANGE_VIDEO,
+    currentVideo
+  }
+}

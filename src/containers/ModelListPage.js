@@ -3,69 +3,89 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Container, Row } from 'reactstrap'
 import PropTypes from 'prop-types'
-import store from '../store'
 import Video from '../components/Video'
 import Actor from '../components/Actor'
 import SocialNetworks from '../components/SocialNetworks'
 import Loader from '../components/Loader'
-import { changeVideo, getProfiles } from '../actions'
+import { alert, changeVideo, getProfiles } from '../actions'
 
 class ModelsListPage extends React.Component {
   componentDidMount () {
-    this.props.actions.getProfiles('123');
-    console.log(this.props)
-    console.log(this.state)
+    this.props.actions.getProfiles('123')
+    this.props.actions.alert(
+      '3 new profiles',
+      500000,
+      'Check now',
+      '#'
+    )
   }
 
   render () {
-    const { items, actions, videos, isLoading, hasError } = this.props;
-    console.log(this.props)
-    if (isLoading && !items) {
+    const {
+      actions,
+      videos,
+      isLoading,
+      hasError,
+      currentVideo,
+      modelInfo,
+      newProfiles
+    } = this.props;
+
+    if (isLoading && !currentVideo) {
       return <Loader/>
     } else if (hasError) {
-      return <p>error loading data </p>
+      return <p>Error loading data </p>
     } else {
-      console.log(this.props)
-      let currentVideo = videos && videos.find((item) => { return item.id === 1})
       return (
-        <div>
+        <React.Fragment>
           <Container fluid={true}>
             <Row>
-              <Video
-                videos={videos}
-                currentVideo={currentVideo}
-                changeVideo={actions.changeVideo}
-              />
-              {/*<Actor data={items} />*/}
+              { currentVideo ?
+                  <Video
+                  videos={videos}
+                  currentVideo={currentVideo}
+                  /> : ''
+              }
+              { modelInfo ? <Actor data={modelInfo} /> : ''}
             </Row>
           </Container>
           <Container fluid={true}>
-            {/*<SocialNetworks*/}
-              {/*data={items.videos}*/}
-              {/*currentVideo={currentVideo}*/}
-              {/*changeVideo={this.props.changeVideo}*/}
-            {/*/>*/}
+            { videos ? <SocialNetworks
+              videos={videos}
+              name={modelInfo.name}
+              currentVideo={currentVideo}
+              changeVideo={actions.changeVideo}
+            /> : ''}
           </Container>
-        </div>
+        </React.Fragment>
       )
     }
   }
 }
 
 ModelsListPage.propTypes = {
+  videos: PropTypes.array,
+  currentVideo: PropTypes.object,
+  modelInfo: PropTypes.object,
+  hasError: PropTypes.bool,
+  isLoading: PropTypes.bool
 }
 
 const mapStateToProps = state => (
   {
   ...state,
-  items: state.items,
-  videos: state.items.videos,
+  alerts: state.alertsReducer.alerts,
+  videos: state.itemsReducer.items.videos,
+  currentVideo: state.itemsReducer.currentVideo,
+  modelInfo: state.itemsReducer.items.modelInfo,
+  newProfiles: state.itemsReducer.items.newProfiles,
   hasError: state.hasError,
   isLoading: state.isLoading
 })
 
 const mapDispatchToProps = dispatch => ({
     actions: bindActionCreators({
+      alert,
       changeVideo,
       getProfiles
     }, dispatch)
