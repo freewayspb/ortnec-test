@@ -5,7 +5,6 @@ import Alert from './Alert';
 
 class Alerts extends React.Component {
   render() {
-    console.log(this.props.alerts);
     return (
       <Container fluid={true}>
         <Row className="alerts_container">

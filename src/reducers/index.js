@@ -37,7 +37,6 @@ export function itemsReducer(state = initialState, action) {
         currentVideo: action.currentVideo
       }
     case CHANGE_VIDEO:
-      console.log(state)
       return {
         ...state,
         currentVideo: action.currentVideo

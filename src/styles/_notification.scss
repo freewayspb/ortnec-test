@@ -7,7 +7,7 @@
    }
   &-message {
     color: $text-color;
-    font-family: "Arial Black";
+    font-family: "Arial Black", sans-serif;
     font-size: 14px;
     font-weight: 400;
     line-height: 24px;
@@ -15,9 +15,8 @@
   }
   &-button {
     border-radius: 3px;
-    background-color: #dae3ff;
     text-shadow: none;
-    background-image: none;
+    background: #dae3ff none;
     color: $text-color;
     font-family: 'Ubuntu', sans-serif;
     font-size: 14px;

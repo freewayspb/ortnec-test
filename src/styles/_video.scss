@@ -1,6 +1,5 @@
 
 .react-video {
-
   &-wrapper {
     position: relative;
     margin: 0 -10px 0 -15px;
@@ -58,16 +57,14 @@
 }
 .video-control {
   color: $text-color;
-  font-family: "Arial";
+  font-family: "Arial", sans-serif;
   font-size: 14px;
   font-weight: 400;
   line-height: 40px;
   text-transform: uppercase;
   margin: 20px -15px;
   &-block {
-    &--first{
-      //margin: 0 0 0 -15px;
-    }
+    &--first{}
     &--second {
       margin: 0 -15px 0 0;
     }
@@ -106,7 +103,7 @@
     margin: 10px 0 10px 5px;
   }
   &-favorites {
-    font-family: "Arial Rounded MT Bold";
+    font-family: "Arial Rounded MT Bold", sans-serif;
     text-transform: initial;
     color: $text-color;
     margin: 0 15px 0 40px;
@@ -127,7 +124,7 @@
         border-radius: 20px;
         background-color: #dae3ff;
         color: #465993;
-        font-family: "Arial Rounded MT Bold";
+        font-family: "Arial Rounded MT Bold", sans-serif;
         font-size: 14px;
         font-weight: 400;
         line-height: 24px;
@@ -159,7 +156,7 @@
       border-radius: 20px;
       background-color: #dae3ff;
       color: #465993;
-      font-family: "Arial Rounded MT Bold";
+      font-family: "Arial Rounded MT Bold", sans-serif;
       font-size: 14px;
       font-weight: 400;
       line-height: 24px;
@@ -198,7 +195,7 @@
       }
       .favorites-item{
         color: $text-color;
-        font-family: "Arial";
+        font-family: "Arial", sans-serif;
         font-size: 14px;
         font-weight: 400;
         line-height: 24px;
@@ -214,7 +211,7 @@
         &:hover {background-color: #dae3ff;}
         &-title {
           color: #465993;
-          font-family: "Arial Rounded MT Bold";
+          font-family: "Arial Rounded MT Bold", sans-serif;
           line-height: 23px;
           text-transform: uppercase;
         }

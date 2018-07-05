@@ -7,7 +7,6 @@ import Duration from './Duration'
 export default class Video extends React.Component {
   constructor (props, context) {
     super(props, context)
-
     this.toggle = this.toggle.bind(this);
   }
 
@@ -33,18 +32,15 @@ export default class Video extends React.Component {
     this.setState({ playing: !this.state.playing })
   }
   setVolume = e => {
-    // this.setState({ volume: parseFloat(e.target.value) })
     this.setState({ volume: parseFloat(e)/100 })
   }
   toggleMuted = () => {
     this.setState({ muted: !this.state.muted })
   }
   onPlay = () => {
-    console.log('onPlay')
     this.setState({ playing: true })
   }
   onPause = () => {
-    console.log('onPause')
     this.setState({ playing: false })
   }
   onProgress = state => {
@@ -55,11 +51,9 @@ export default class Video extends React.Component {
     }
   }
   onEnded = () => {
-    console.log('onEnded')
     this.setState({ playing: this.state.loop })
   }
   onDuration = (duration) => {
-    console.log('onDuration', duration)
     this.setState({ duration })
   }
   refPlayer = player => {
@@ -73,7 +67,6 @@ export default class Video extends React.Component {
       muted,
       loop,
       played,
-      loaded,
       duration,
       playbackRate
     } = this.state
@@ -91,14 +84,9 @@ export default class Video extends React.Component {
             playbackRate={playbackRate}
             volume={volume}
             muted={muted}
-            onReady={() => console.log('onReady')}
-            onStart={() => console.log('onStart')}
             onPlay={this.onPlay}
             onPause={this.onPause}
-            onBuffer={() => console.log('onBuffer')}
-            onSeek={e => console.log('onSeek', e)}
             onEnded={this.onEnded}
-            onError={e => console.log('onError', e)}
             onProgress={this.onProgress}
             onDuration={this.onDuration} />
           {!playing ?
@@ -140,7 +128,6 @@ export default class Video extends React.Component {
               onChange={this.setVolume}
             />
             <span className="video-control-currentTime">
-              {/*{played ? played : '00:00:00'}*/}
               <Duration seconds={duration * played} />
             </span>
             <span className="video-control-duration">

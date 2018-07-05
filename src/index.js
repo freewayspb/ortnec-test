@@ -10,8 +10,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.css';
 import './index.scss'
 
-
-
 const browserHistory = createHistory()
 
 export const history = syncHistoryWithStore(browserHistory, store())

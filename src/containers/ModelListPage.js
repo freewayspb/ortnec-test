@@ -14,7 +14,7 @@ class ModelsListPage extends React.Component {
     this.props.actions.getProfiles('123')
     this.props.actions.alert(
       '3 new profiles',
-      500000,
+      5000,
       'Check now',
       '#'
     )
@@ -27,8 +27,7 @@ class ModelsListPage extends React.Component {
       isLoading,
       hasError,
       currentVideo,
-      modelInfo,
-      newProfiles
+      modelInfo
     } = this.props;
 
     if (isLoading && !currentVideo) {
